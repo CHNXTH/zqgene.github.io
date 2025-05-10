@@ -5,506 +5,351 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     // 初始化地图
-    const map = L.map('map-container').setView([36.681, 117.536], 11);
+    const map = L.map('map-container').setView([36.7138, 117.5228], 11); // 章丘区中心位置
     
-    // 添加底图图层（使用OpenStreetMap）
+    // 添加底图
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
     
-    // 定义村落数据
+    // 章丘传统村落数据
     const villages = [
         {
-            name: "三德范村", 
-            lat: 36.698, 
-            lng: 117.578, 
-            level: "national", 
-            image: "village1.jpg",
-            category: "中部村落",
-            heritage: "古井群、明清建筑群",
-            stats: {
-                buildings: 23,
-                craftsmen: 5,
-                activities: 8
-            },
-            tags: ["明清建筑", "传统工艺", "国家级"]
+            name: "三德范村",
+            location: [36.7450, 117.4983],
+            address: "山东省章丘区文祖街道 三德范村",
+            level: "national", // 国家级
+            area: "central",  // 区域位置
+            features: ["明清古建筑群", "传统民俗活动", "木工技艺"],
+            image: "images/sandefan.jpg"
         },
         {
-            name: "白云湖村", 
-            lat: 36.662, 
-            lng: 117.498, 
-            level: "province", 
-            image: "village2.jpg",
-            category: "南部村落",
-            heritage: "传统民居、水系景观",
-            stats: {
-                buildings: 18,
-                craftsmen: 3,
-                activities: 5
-            },
-            tags: ["水乡文化", "民间艺术", "省级"]
+            name: "石子口村",
+            location: [36.7582, 117.5123],
+            address: "山东省章丘区文祖街道 石子口村",
+            level: "province", // 省级
+            area: "north",
+            features: ["传统民居", "历史文化遗迹", "民间工艺"],
+            image: "images/shizikou.jpg"
         },
         {
-            name: "朱家峪村", 
-            lat: 36.705, 
-            lng: 117.532, 
-            level: "national", 
-            image: "village3.jpg",
-            category: "北部村落",
-            heritage: "古村落空间格局、传统建筑",
-            stats: {
-                buildings: 26,
-                craftsmen: 4,
-                activities: 7
-            },
-            tags: ["传统村落", "村落布局", "国家级"]
+            name: "青野村",
+            location: [36.7321, 117.4876],
+            address: "山东省章丘区文祖街道 青野村",
+            level: "local", // 区级
+            area: "central",
+            features: ["农耕文化", "传统农具", "古树名木"],
+            image: "images/qingye.jpg"
         },
         {
-            name: "明水古镇", 
-            lat: 36.721, 
-            lng: 117.612, 
-            level: "national", 
-            image: "village4.jpg",
-            category: "北部村落",
-            heritage: "明清街区、古商业建筑",
-            stats: {
-                buildings: 32,
-                craftsmen: 6,
-                activities: 9
-            },
-            tags: ["古镇", "商业文化", "国家级"]
+            name: "朱家裕村",
+            location: [36.6985, 117.4567],
+            address: "山东省章丘区官庄街道 朱家裕村",
+            level: "province",
+            area: "west",
+            features: ["传统建筑", "民俗文化", "手工艺"],
+            image: "images/zhujiayu.jpg"
         },
         {
-            name: "宁家村", 
-            lat: 36.675, 
-            lng: 117.554, 
-            level: "province", 
-            image: "village5.jpg",
-            category: "中部村落",
-            heritage: "传统农耕文化、古民居",
-            stats: {
-                buildings: 15,
-                craftsmen: 2,
-                activities: 4
-            },
-            tags: ["农耕文化", "民俗活动", "省级"]
+            name: "东矾硫村",
+            location: [36.6789, 117.4721],
+            address: "山东省章丘区官庄街道 东矾硫村",
+            level: "local",
+            area: "west",
+            features: ["古村落", "传统纺织", "民间艺术"],
+            image: "images/东矾硫村.jpg"
         },
         {
-            name: "东营村", 
-            lat: 36.692, 
-            lng: 117.498, 
-            level: "province", 
-            image: "village6.jpg",
-            category: "西部村落",
-            heritage: "传统手工艺、文昌阁",
-            stats: {
-                buildings: 14,
-                craftsmen: 7,
-                activities: 5
-            },
-            tags: ["手工艺", "教育文化", "省级"]
+            name: "博平村",
+            location: [36.7731, 117.5376],
+            address: "山东省章丘区普集街道博平村",
+            level: "province",
+            area: "north",
+            features: ["古建筑群", "传统手工艺", "民俗活动"],
+            image: "images/bopingcun.jpg"
         },
         {
-            name: "西营村", 
-            lat: 36.655, 
-            lng: 117.522, 
-            level: "local", 
-            image: "village7.jpg",
-            category: "南部村落",
-            heritage: "古戏台、祠堂",
-            stats: {
-                buildings: 12,
-                craftsmen: 2,
-                activities: 6
-            },
-            tags: ["戏曲文化", "宗族文化", "区级"]
+            name: "袭家村",
+            location: [36.7629, 117.5512],
+            address: "山东省章丘区普集街道袭家村",
+            level: "local",
+            area: "north",
+            features: ["传统民居", "乡村文化", "民间故事"],
+            image: "images/袭家村.jpg"
         },
         {
-            name: "北宅科村", 
-            lat: 36.712, 
-            lng: 117.562, 
-            level: "local", 
-            image: "village8.jpg",
-            category: "北部村落",
-            heritage: "传统民居、古树",
-            stats: {
-                buildings: 11,
-                craftsmen: 1,
-                activities: 3
-            },
-            tags: ["自然景观", "民居建筑", "区级"]
+            name: "于家村",
+            location: [36.7528, 117.5392],
+            address: "山东省章丘区普集街道于家村",
+            level: "local",
+            area: "north",
+            features: ["传统建筑", "农耕文化", "手工艺"],
+            image: "images/yujia-cun.jpg"
+        },
+        {
+            name: "十九郎村",
+            location: [36.6845, 117.5621],
+            address: "山东省章丘区相公庄街道十九郎村",
+            level: "province",
+            area: "south",
+            features: ["明清建筑", "传统文化", "民间艺术"],
+            image: "images/十九郎村.jpg"
+        },
+        {
+            name: "梭庄村",
+            location: [36.6723, 117.5483],
+            address: "山东省章丘区相公庄街道梭庄村",
+            level: "local",
+            area: "south",
+            features: ["传统民居", "民俗文化", "历史遗迹"],
+            image: "images/梭庄村.jpg"
+        },
+        {
+            name: "吕家村",
+            location: [36.7143, 117.5712],
+            address: "山东省章丘区明水街道吕家村",
+            level: "province",
+            area: "east",
+            features: ["古建筑", "传统工艺", "历史文化"],
+            image: "images/吕家村.jpg"
+        },
+        {
+            name: "白云湖村",
+            location: [36.7353, 117.5921],
+            address: "山东省章丘区明水街道白云湖村",
+            level: "national",
+            area: "east",
+            features: ["传统民居", "民俗活动", "口述历史"],
+            image: "images/白云湖村.jpg"
         }
     ];
     
-    // 添加GeoJSON边界层
-    // fetch('data/zhangqiu-boundary.geojson')
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         L.geoJSON(data, {
-    //             style: {
-    //                 color: '#8b5a2b',
-    //                 weight: 2,
-    //                 opacity: 0.6,
-    //                 fillColor: '#8b5a2b',
-    //                 fillOpacity: 0.1
-    //             }
-    //         }).addTo(map);
-    //     });
-    
-    // 创建图例
-    const legend = L.control({position: 'bottomright'});
-    
-    legend.onAdd = function(map) {
-        const div = L.DomUtil.create('div', 'map-legend');
-        div.innerHTML = `
-            <div style="background: white; padding: 10px; border-radius: 5px; box-shadow: 0 1px 5px rgba(0,0,0,0.4);">
-                <div style="margin-bottom: 5px; font-weight: bold;">村落等级</div>
-                <div style="margin-bottom: 5px;"><span style="display: inline-block; width: 12px; height: 12px; background-color: #c53030; border-radius: 50%; margin-right: 5px;"></span> 国家级传统村落</div>
-                <div style="margin-bottom: 5px;"><span style="display: inline-block; width: 12px; height: 12px; background-color: #3182ce; border-radius: 50%; margin-right: 5px;"></span> 省级传统村落</div>
-                <div><span style="display: inline-block; width: 12px; height: 12px; background-color: #718096; border-radius: 50%; margin-right: 5px;"></span> 区级传统村落</div>
-            </div>
-        `;
-        return div;
-    };
-    
-    legend.addTo(map);
-    
-    // 创建筛选控件
-    const filterControl = L.control({position: 'topleft'});
-    
-    filterControl.onAdd = function(map) {
-        const div = L.DomUtil.create('div', 'map-filter');
-        div.innerHTML = `
-            <div style="background: white; padding: 10px; border-radius: 5px; box-shadow: 0 1px 5px rgba(0,0,0,0.4); margin-bottom: 10px;">
-                <div style="margin-bottom: 5px; font-weight: bold;">筛选村落</div>
-                <div style="margin-bottom: 5px;">
-                    <label><input type="checkbox" class="level-filter" value="national" checked> 国家级</label>
-                </div>
-                <div style="margin-bottom: 5px;">
-                    <label><input type="checkbox" class="level-filter" value="province" checked> 省级</label>
-                </div>
-                <div>
-                    <label><input type="checkbox" class="level-filter" value="local" checked> 区级</label>
-                </div>
-            </div>
-            <div style="background: white; padding: 10px; border-radius: 5px; box-shadow: 0 1px 5px rgba(0,0,0,0.4);">
-                <div style="margin-bottom: 5px; font-weight: bold;">区域筛选</div>
-                <div style="margin-bottom: 5px;">
-                    <label><input type="checkbox" class="category-filter" value="北部村落" checked> 北部村落</label>
-                </div>
-                <div style="margin-bottom: 5px;">
-                    <label><input type="checkbox" class="category-filter" value="中部村落" checked> 中部村落</label>
-                </div>
-                <div style="margin-bottom: 5px;">
-                    <label><input type="checkbox" class="category-filter" value="南部村落" checked> 南部村落</label>
-                </div>
-                <div>
-                    <label><input type="checkbox" class="category-filter" value="西部村落" checked> 西部村落</label>
-                </div>
-            </div>
-        `;
-        return div;
-    };
-    
-    filterControl.addTo(map);
-    
-    // 防止点击筛选控件时触发地图事件
-    document.addEventListener('DOMNodeInserted', function(e) {
-        if (e.target.classList && e.target.classList.contains('map-filter')) {
-            L.DomEvent.disableClickPropagation(e.target);
-        }
+    // 定义不同等级村落的图标
+    const nationalIcon = L.divIcon({
+        className: 'custom-div-icon',
+        html: `<div style="background-color:#c53030; width:15px; height:15px; border-radius:50%; border:2px solid white;"></div>`,
+        iconSize: [15, 15],
+        iconAnchor: [8, 8]
     });
     
-    // 创建村落标记和弹出窗口
-    const markers = {};
+    const provinceIcon = L.divIcon({
+        className: 'custom-div-icon',
+        html: `<div style="background-color:#3182ce; width:12px; height:12px; border-radius:50%; border:2px solid white;"></div>`,
+        iconSize: [12, 12],
+        iconAnchor: [6, 6]
+    });
     
+    const localIcon = L.divIcon({
+        className: 'custom-div-icon',
+        html: `<div style="background-color:#805ad5; width:10px; height:10px; border-radius:50%; border:2px solid white;"></div>`,
+        iconSize: [10, 10],
+        iconAnchor: [5, 5]
+    });
+    
+    // 将村落添加到地图
     villages.forEach(village => {
-        // 根据村落等级设置颜色
-        let color;
-        let levelText;
-        
-        switch(village.level) {
+        // 根据等级选择图标
+        let icon;
+        switch (village.level) {
             case 'national':
-                color = '#c53030';
-                levelText = '国家级传统村落';
+                icon = nationalIcon;
                 break;
             case 'province':
-                color = '#3182ce';
-                levelText = '省级传统村落';
+                icon = provinceIcon;
                 break;
             default:
-                color = '#718096';
-                levelText = '区级传统村落';
+                icon = localIcon;
+                break;
         }
         
-        // 创建标记
-        const marker = L.circleMarker([village.lat, village.lng], {
-            radius: 8,
-            fillColor: color,
-            color: '#fff',
-            weight: 2,
-            opacity: 1,
-            fillOpacity: 0.8,
-            data: village
-        }).addTo(map);
+        // 创建标记并添加到地图
+        const marker = L.marker(village.location, {icon: icon}).addTo(map);
         
-        // 创建弹出窗口内容
+        // 创建弹出窗口
         const popupContent = `
-            <div style="text-align: center; width: 250px;">
-                <img src="images/${village.image}" alt="${village.name}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; margin-bottom: 10px;">
-                <h3 style="margin: 0 0 5px 0; color: #8b5a2b;">${village.name}</h3>
-                <p style="margin: 0 0 10px 0; color: ${color};">${levelText}</p>
-                <p style="margin: 0 0 10px 0; text-align: left;"><strong>代表遗产：</strong>${village.heritage}</p>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                    <div style="text-align: center;">
-                        <div style="font-size: 18px; font-weight: bold; color: #c53030;">${village.stats.buildings}</div>
-                        <div style="font-size: 12px; color: #666;">古建筑</div>
+            <div style="width: 200px;">
+                <h3 style="color: #c53030; margin: 0 0 5px 0;">${village.name}</h3>
+                <p style="color: #666; font-size: 12px; margin: 0 0 5px 0;">${village.address}</p>
+                <div style="margin: 5px 0; height: 100px; overflow: hidden; border-radius: 4px;">
+                    <img src="${village.image}" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <p style="margin: 5px 0 0 0; font-size: 12px;">
+                    <strong>特色：</strong>${village.features.join('、')}
+                </p>
+            </div>
+        `;
+        marker.bindPopup(popupContent);
+        
+        // 添加到村落卡片显示区域
+        addVillageCard(village);
+    });
+    
+    // 添加村落卡片到页面
+    function addVillageCard(village) {
+        const villagesGrid = document.getElementById('villages-grid');
+        
+        const card = document.createElement('div');
+        card.className = `village-card ${village.level} ${village.area}`;
+        card.setAttribute('data-level', village.level);
+        card.setAttribute('data-area', village.area);
+        card.setAttribute('data-aos', 'fade-up');
+        
+        card.innerHTML = `
+            <div class="village-card-image">
+                <img src="${village.image}" alt="${village.name}">
+            </div>
+            <div class="village-card-content">
+                <h3 class="village-card-title">${village.name}</h3>
+                <div class="village-tags">
+                    <span class="village-tag">${getLevelName(village.level)}</span>
+                    <span class="village-tag">${getAreaName(village.area)}</span>
+                </div>
+                <p style="margin-bottom: 8px; font-size: 0.9rem; color: #666;">${village.address}</p>
+                <div class="village-card-stats">
+                    <div class="village-stat">
+                        <div class="stat-value">${Math.floor(Math.random() * 15) + 5}</div>
+                        <div class="stat-label">古建筑</div>
                     </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 18px; font-weight: bold; color: #c53030;">${village.stats.craftsmen}</div>
-                        <div style="font-size: 12px; color: #666;">传承人</div>
+                    <div class="village-stat">
+                        <div class="stat-value">${Math.floor(Math.random() * 8) + 2}</div>
+                        <div class="stat-label">非遗项目</div>
                     </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 18px; font-weight: bold; color: #c53030;">${village.stats.activities}</div>
-                        <div style="font-size: 12px; color: #666;">民俗活动</div>
+                    <div class="village-stat">
+                        <div class="stat-value">${Math.floor(Math.random() * 10) + 5}</div>
+                        <div class="stat-label">文化活动</div>
                     </div>
                 </div>
-                <a href="#${village.name.toLowerCase()}" style="display: inline-block; background-color: #c53030; color: white; padding: 5px 15px; text-decoration: none; border-radius: 4px;">查看详情</a>
+                <a href="#" class="btn-secondary" style="width: 100%; text-align: center; margin-top: 8px;">查看详情</a>
             </div>
         `;
         
-        marker.bindPopup(popupContent);
-        
-        marker.on('mouseover', function(e) {
-            this.openPopup();
-        });
-        
-        // 存储标记引用
-        markers[village.name] = {
-            marker: marker,
-            data: village
-        };
-    });
+        villagesGrid.appendChild(card);
+    }
     
     // 筛选功能
-    function applyFilters() {
-        // 获取选中的等级
-        const selectedLevels = [];
-        document.querySelectorAll('.level-filter:checked').forEach(checkbox => {
-            selectedLevels.push(checkbox.value);
-        });
-        
-        // 获取选中的区域
-        const selectedCategories = [];
-        document.querySelectorAll('.category-filter:checked').forEach(checkbox => {
-            selectedCategories.push(checkbox.value);
-        });
-        
-        // 应用筛选
-        for (const name in markers) {
-            const village = markers[name].data;
-            const marker = markers[name].marker;
-            
-            if (selectedLevels.includes(village.level) && selectedCategories.includes(village.category)) {
-                marker.addTo(map);
-            } else {
-                marker.remove();
-            }
-        }
-    }
-    
-    // 添加筛选事件监听器
-    document.addEventListener('DOMNodeInserted', function(e) {
-        if (e.target.classList && (e.target.classList.contains('map-filter') || e.target.classList.contains('level-filter') || e.target.classList.contains('category-filter'))) {
-            e.target.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                checkbox.addEventListener('change', applyFilters);
+    const filterButtons = document.querySelectorAll('.village-filter-btn');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // 更新选中状态
+            filterButtons.forEach(btn => {
+                btn.style.backgroundColor = 'white';
+                btn.style.color = 'var(--color-text)';
+                btn.classList.remove('active');
             });
-        }
-    });
-    
-    // 生成村落卡片
-    const villageGrid = document.getElementById('villages-grid');
-    
-    if (villageGrid) {
-        // 清空现有内容
-        villageGrid.innerHTML = '';
-        
-        // 添加村落卡片
-        villages.forEach(village => {
-            const levelClass = village.level === 'national' ? 'national' : (village.level === 'province' ? 'province' : 'local');
-            const levelText = village.level === 'national' ? '国家级' : (village.level === 'province' ? '省级' : '区级');
+            this.style.backgroundColor = 'var(--color-primary)';
+            this.style.color = 'white';
+            this.classList.add('active');
             
-            const tagsHtml = village.tags.map(tag => `<span class="village-tag">${tag}</span>`).join('');
+            const filter = this.getAttribute('data-filter');
+            const cards = document.querySelectorAll('.village-card');
             
-            const villageCard = document.createElement('div');
-            villageCard.className = 'village-card';
-            villageCard.setAttribute('data-aos', 'fade-up');
-            villageCard.setAttribute('data-level', village.level);
-            villageCard.setAttribute('data-category', village.category);
-            villageCard.id = village.name.toLowerCase();
-            
-            villageCard.innerHTML = `
-                <div class="village-card-image">
-                    <img src="images/${village.image}" alt="${village.name}">
-                </div>
-                <div class="village-card-content">
-                    <h3 class="village-card-title">${village.name}</h3>
-                    <div class="village-card-stats">
-                        <div class="village-stat">
-                            <div class="stat-value">${village.stats.buildings}</div>
-                            <div class="stat-label">古建筑</div>
-                        </div>
-                        <div class="village-stat">
-                            <div class="stat-value">${village.stats.craftsmen}</div>
-                            <div class="stat-label">传承人</div>
-                        </div>
-                        <div class="village-stat">
-                            <div class="stat-value">${village.stats.activities}</div>
-                            <div class="stat-label">民俗活动</div>
-                        </div>
-                    </div>
-                    <div class="village-tags">
-                        ${tagsHtml}
-                        <span class="village-tag village-level ${levelClass}">${levelText}</span>
-                    </div>
-                    <p>${village.heritage}</p>
-                    <a href="#${village.name.toLowerCase()}" class="btn-secondary view-village-btn" data-village="${village.name}">查看详情</a>
-                </div>
-            `;
-            
-            villageGrid.appendChild(villageCard);
-            
-            // 添加点击事件，点击卡片时在地图上显示对应村落
-            villageCard.querySelector('.view-village-btn').addEventListener('click', function(e) {
-                const villageName = this.getAttribute('data-village');
-                const marker = markers[villageName].marker;
-                const data = markers[villageName].data;
-                
-                map.setView([data.lat, data.lng], 14);
-                marker.openPopup();
-                
-                // 平滑滚动到地图
-                document.getElementById('map-container').scrollIntoView({ 
-                    behavior: 'smooth'
-                });
-            });
-        });
-    }
-    
-    // 村落列表筛选功能
-    const villageFilterButtons = document.querySelectorAll('.village-filter-btn');
-    
-    if (villageFilterButtons.length > 0) {
-        villageFilterButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // 更新激活按钮
-                villageFilterButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                
-                const filter = this.getAttribute('data-filter');
-                const villageCards = document.querySelectorAll('.village-card');
-                
-                villageCards.forEach(card => {
-                    if (filter === 'all') {
+            cards.forEach(card => {
+                if (filter === 'all') {
+                    card.style.display = 'block';
+                } else if (filter === 'national' || filter === 'province' || filter === 'local') {
+                    // 筛选等级
+                    if (card.getAttribute('data-level') === filter) {
                         card.style.display = 'block';
-                    } else if (filter === 'national' || filter === 'province' || filter === 'local') {
-                        if (card.getAttribute('data-level') === filter) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    } else if (filter === 'north' || filter === 'central' || filter === 'south' || filter === 'west') {
-                        const categoryMap = {
-                            'north': '北部村落',
-                            'central': '中部村落',
-                            'south': '南部村落',
-                            'west': '西部村落'
-                        };
-                        
-                        if (card.getAttribute('data-category') === categoryMap[filter]) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
+                    } else {
+                        card.style.display = 'none';
                     }
-                });
-            });
-        });
-    }
-    
-    // 统计图表
-    const statsChart = document.getElementById('village-stats-chart');
-    
-    if (statsChart && window.Chart) {
-        // 计算统计数据
-        const nationalCount = villages.filter(v => v.level === 'national').length;
-        const provinceCount = villages.filter(v => v.level === 'province').length;
-        const localCount = villages.filter(v => v.level === 'local').length;
-        
-        const totalBuildings = villages.reduce((sum, v) => sum + v.stats.buildings, 0);
-        const totalCraftsmen = villages.reduce((sum, v) => sum + v.stats.craftsmen, 0);
-        const totalActivities = villages.reduce((sum, v) => sum + v.stats.activities, 0);
-        
-        // 创建图表
-        new Chart(statsChart, {
-            type: 'doughnut',
-            data: {
-                labels: ['国家级村落', '省级村落', '区级村落'],
-                datasets: [{
-                    label: '村落数量',
-                    data: [nationalCount, provinceCount, localCount],
-                    backgroundColor: ['#c53030', '#3182ce', '#718096']
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const label = context.label || '';
-                                const value = context.raw || 0;
-                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                const percentage = Math.round((value / total) * 100);
-                                return `${label}: ${value} (${percentage}%)`;
-                            }
-                        }
+                } else {
+                    // 筛选区域
+                    if (card.getAttribute('data-area') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
                     }
                 }
-            }
+            });
         });
+    });
+    
+    // 等级名称转换
+    function getLevelName(level) {
+        switch(level) {
+            case 'national': return '国家级';
+            case 'province': return '省级';
+            case 'local': return '区级';
+            default: return '';
+        }
+    }
+    
+    // 区域名称转换
+    function getAreaName(area) {
+        switch(area) {
+            case 'north': return '北部';
+            case 'south': return '南部';
+            case 'east': return '东部';
+            case 'west': return '西部';
+            case 'central': return '中部';
+            default: return '';
+        }
+    }
+    
+    // 初始化统计图表
+    initCharts();
+    
+    // 统计图表
+    function initCharts() {
+        // 村落等级分布图表
+        const levelCounts = {
+            national: villages.filter(v => v.level === 'national').length,
+            province: villages.filter(v => v.level === 'province').length,
+            local: villages.filter(v => v.level === 'local').length
+        };
         
-        // 创建资源统计图
-        const resourcesChart = document.getElementById('resources-stats-chart');
-        
-        if (resourcesChart && window.Chart) {
-            new Chart(resourcesChart, {
-                type: 'bar',
+        const levelChart = new Chart(
+            document.getElementById('village-stats-chart'),
+            {
+                type: 'pie',
                 data: {
-                    labels: ['古建筑', '传统工艺传承人', '民俗活动'],
+                    labels: ['国家级', '省级', '区级'],
                     datasets: [{
-                        label: '数量',
-                        data: [totalBuildings, totalCraftsmen, totalActivities],
-                        backgroundColor: ['#8b5a2b', '#3182ce', '#c53030']
+                        data: [levelCounts.national, levelCounts.province, levelCounts.local],
+                        backgroundColor: ['#c53030', '#3182ce', '#805ad5'],
+                        borderColor: 'white',
+                        borderWidth: 2
                     }]
                 },
                 options: {
                     responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
                         }
-                    },
+                    }
+                }
+            }
+        );
+        
+        // 文化资源统计图表
+        const resourcesChart = new Chart(
+            document.getElementById('resources-stats-chart'),
+            {
+                type: 'bar',
+                data: {
+                    labels: ['物质文化遗产', '非物质文化遗产', '文化活动', '历史人物'],
+                    datasets: [{
+                        label: '资源数量',
+                        data: [195, 12, 28, 45],
+                        backgroundColor: ['#c53030', '#3182ce', '#805ad5', '#38a169']
+                    }]
+                },
+                options: {
+                    responsive: true,
                     plugins: {
                         legend: {
                             display: false
                         }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            });
-        }
+            }
+        );
     }
 }); 

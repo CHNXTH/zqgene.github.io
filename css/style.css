@@ -110,6 +110,7 @@ ul {
 .section-title {
     font-family: var(--font-title);
     font-size: 2.5rem;
+    font-weight: 590;
     margin-bottom: var(--spacing-sm);
     color: var(--color-primary);
     position: relative;
@@ -791,4 +792,256 @@ ul {
     .section-title {
         font-size: 2rem;
     }
+}
+
+/* 修改现有横幅继承统一样式 */
+.about-banner, .contact-banner, .pilot-zone-banner, .results-banner, .media-banner, .engagement-banner, .downloads-banner {
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 80px;
+}
+
+.about-banner::before, .contact-banner::before, .pilot-zone-banner::before, .results-banner::before, .media-banner::before, .engagement-banner::before, .downloads-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+}
+
+.about-banner-content, .contact-banner-content, .pilot-zone-banner-content, .results-banner-content, .media-banner-content, .engagement-banner-content, .downloads-banner-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    padding: 0 var(--spacing-md);
+}
+
+.about-banner-content h1, .contact-banner-content h1, .pilot-zone-banner-content h1, .results-banner-content h1, .media-banner-content h1, .engagement-banner-content h1, .downloads-banner-content h1 {
+    font-family: var(--font-title);
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-md);
+    color: white;
+    position: relative;
+    display: inline-block;
+}
+
+.about-banner-content h1::after, .contact-banner-content h1::after, .pilot-zone-banner-content h1::after, .results-banner-content h1::after, .media-banner-content h1::after, .engagement-banner-content h1::after, .downloads-banner-content h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: white;
+}
+
+.about-banner-content p, .contact-banner-content p, .pilot-zone-banner-content p, .results-banner-content p, .media-banner-content p, .engagement-banner-content p, .downloads-banner-content p {
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .about-banner, .contact-banner, .pilot-zone-banner, .results-banner, .media-banner, .engagement-banner, .downloads-banner {
+        height: 40vh;
+        min-height: 300px;
+    }
+    
+    .about-banner-content h1, .contact-banner-content h1, .pilot-zone-banner-content h1, .results-banner-content h1, .media-banner-content h1, .engagement-banner-content h1, .downloads-banner-content h1 {
+        font-size: 2rem;
+    }
+}
+
+/* 统一横幅样式 */
+.unified-banner {
+    height: 50vh;
+    min-height: 400px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 80px;
+}
+
+.unified-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+}
+
+.unified-banner-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    padding: 0 var(--spacing-md);
+}
+
+.unified-banner-content h1 {
+    font-family: var(--font-title);
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-md);
+    color: white;
+    position: relative;
+    display: inline-block;
+}
+
+.unified-banner-content h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: white;
+}
+
+.unified-banner-content p {
+    font-size: 1.1rem;
+}
+
+/* 修改现有横幅继承统一样式 */
+.about-banner, .contact-banner, .pilot-zone-banner, .results-banner, .media-banner, .engagement-banner, .downloads-banner {
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 80px;
+}
+
+/* 村落地图样式 */
+.map-section {
+    padding: var(--spacing-xl) 0;
+    background-color: var(--color-background);
+}
+
+.map-container {
+    width: 100%;
+    height: 500px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.villages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.village-card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.village-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.village-card-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.village-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.village-card:hover .village-card-image img {
+    transform: scale(1.05);
+}
+
+.village-card-content {
+    padding: 1.5rem;
+}
+
+.village-card-title {
+    color: var(--color-primary);
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+}
+
+.village-card-stats {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+
+.village-stat {
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+}
+
+.village-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.village-tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--color-background-alt);
+    border-radius: 4px;
+    color: var(--color-text);
+}
+
+.village-filter-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid var(--color-border);
+    background-color: white;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.village-filter-btn:hover {
+    background-color: var(--color-background-alt);
+}
+
+.village-filter-btn.active {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
 } 
